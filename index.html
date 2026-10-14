@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="有一封信写给姐姐，点一下就打开。生日快乐。">
-  <meta property="og:title" content="姐姐，生日快乐">
-  <meta property="og:description" content="有一封信写给你，点一下就打开。">
-  <meta itemprop="name" content="姐姐，生日快乐">
-  <meta itemprop="description" content="有一封信写给你，点一下就打开。">
-  <title>姐姐，生日快乐</title>
+  <meta name="description" content="A letter written only for you. Happy birthday.">
+  <meta property="og:title" content="Happy Birthday, Sister">
+  <meta property="og:description" content="A letter written only for you.">
+  <meta itemprop="name" content="Happy Birthday, Sister">
+  <meta itemprop="description" content="A letter written only for you.">
+  <title>Happy Birthday, Sister</title>
   <style>
     :root {
       --bg0: #14080c;
@@ -152,15 +152,16 @@
     }
 
     .kicker {
-      font-size: 13px;
-      letter-spacing: 0.42em;
-      text-indent: 0.42em;
+      font-size: 12px;
+      letter-spacing: 0.34em;
+      text-indent: 0.34em;
+      text-transform: uppercase;
       color: rgba(240, 221, 184, 0.82);
     }
 
     .name {
       margin-top: 14px;
-      font-family: "Songti SC", "STSong", "SimSun", serif;
+      font-family: Palatino, "Palatino Linotype", "Iowan Old Style", "Times New Roman", "Songti SC", serif;
       font-size: clamp(48px, 16vw, 64px);
       font-weight: 500;
       line-height: 1;
@@ -170,10 +171,11 @@
 
     .sub {
       margin: 10px 0 28px;
-      font-family: "Songti SC", "STSong", "SimSun", serif;
-      font-size: 18px;
-      letter-spacing: 0.46em;
-      text-indent: 0.46em;
+      font-family: Palatino, "Palatino Linotype", "Iowan Old Style", "Times New Roman", "Songti SC", serif;
+      font-size: 16px;
+      letter-spacing: 0.28em;
+      text-indent: 0.28em;
+      text-transform: uppercase;
       color: var(--gold);
     }
 
@@ -278,8 +280,10 @@
       display: grid;
       place-items: center;
       color: #f8e7c9;
-      font-family: "Songti SC", "STSong", "SimSun", serif;
-      font-size: 30px;
+      font-family: Palatino, "Palatino Linotype", "Times New Roman", serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-indent: 0.08em;
       background: radial-gradient(circle at 35% 30%, #e87886, #8d2434 68%);
       box-shadow:
         inset 0 0 0 5px rgba(255, 226, 190, 0.45),
@@ -333,13 +337,6 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       padding: calc(64px + env(safe-area-inset-top)) 22px calc(108px + env(safe-area-inset-bottom));
-    }
-
-    .stage.is-after .sound,
-    .stage[data-scene="letter"] .sound {
-      color: #2c2c2c;
-      border-color: rgba(40, 40, 40, 0.16);
-      background: rgba(255, 255, 255, 0.72);
     }
 
     .after-wish {
@@ -417,7 +414,7 @@
   margin-top: 12px;
   padding: 6px 10px;
   color: rgba(240, 221, 184, 0.8);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   font-size: 13px;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -428,16 +425,17 @@
 }
 
     .cake-wrap h2 {
-      font-family: "Songti SC", "STSong", "SimSun", serif;
+      font-family: Palatino, "Palatino Linotype", "Iowan Old Style", "Times New Roman", serif;
       font-weight: 500;
       font-size: 32px;
+      letter-spacing: 0.04em;
       color: #fff8f1;
     }
 
     .cake-lead {
       margin: 8px 0 26px;
       color: rgba(240, 221, 184, 0.86);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       font-size: 14px;
     }
 
@@ -621,24 +619,13 @@
 
     .cake-wrap.is-blown .blow { display: none; }
 
-    .sound {
+    .bgm {
       position: absolute;
-      z-index: 5;
-      top: calc(12px + env(safe-area-inset-top));
-      right: 14px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(240, 221, 184, 0.35);
-      color: var(--gold);
-      display: grid;
-      place-items: center;
-      background: rgba(20, 8, 12, 0.28);
+      width: 0;
+      height: 0;
+      opacity: 0;
+      pointer-events: none;
     }
-
-    .sound[hidden] { display: none; }
-
-    .sound svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; }
 
     .confetti {
       position: fixed;
@@ -754,16 +741,14 @@
       border-radius: 999px;
       background: linear-gradient(180deg, #b24a5b, var(--rose-deep));
       color: #fff8f3;
-      letter-spacing: 0.18em;
-      text-indent: 0.18em;
-      font-size: 15px;
+      letter-spacing: 0.06em;
+      text-indent: 0.06em;
+      font-size: 14px;
+      white-space: nowrap;
       box-shadow: 0 10px 24px rgba(40, 8, 14, 0.35);
     }
 
     .dock[hidden] { display: none; }
-
-    .sound { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-    .stage.is-music .sound { opacity: 1; pointer-events: auto; }
 
     @media (max-height: 720px) {
       .scene-letter { padding-top: calc(56px + env(safe-area-inset-top)); }
@@ -792,41 +777,30 @@
     <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="balloons" id="balloons"></div>
     <div class="petals" id="petals"></div>
+    <audio class="bgm" id="bgm" src="hbd.mp3" loop preload="auto" playsinline></audio>
 
-    <button class="sound" id="soundBtn" type="button" aria-label="关闭音乐" aria-pressed="false">
-      <svg id="iconOn" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 10h3l5-4v12l-5-4H4z"></path>
-        <path d="M16 9.5a3.5 3.5 0 0 1 0 5"></path>
-        <path d="M18 7a6.5 6.5 0 0 1 0 10"></path>
-      </svg>
-      <svg id="iconOff" viewBox="0 0 24 24" aria-hidden="true" hidden>
-        <path d="M4 10h3l5-4v12l-5-4H4z"></path>
-        <path d="M16 10l5 5M21 10l-5 5"></path>
-      </svg>
-    </button>
-
-    <section class="scene scene-cover" aria-label="未拆开的信">
+    <section class="scene scene-cover" aria-label="The sealed letter">
       <div class="cover">
-        <p class="kicker">一封只写给你的信</p>
-        <h1 class="name">姐姐</h1>
-        <p class="sub">生日快乐</p>
-        <button class="env-btn" id="openBtn" type="button" aria-label="点一下，打开这封信">
+        <p class="kicker">Only for you</p>
+        <h1 class="name">Sister</h1>
+        <p class="sub">Happy Birthday</p>
+        <button class="env-btn" id="openBtn" type="button" aria-label="Open this letter">
           <div class="env-view">
             <div class="envelope" id="envelope">
               <div class="env-back"></div>
               <div class="env-sheet" aria-hidden="true"><i></i><i></i><i></i></div>
               <div class="env-flap"></div>
               <div class="env-pocket"></div>
-              <div class="seal">开</div>
+              <div class="seal">Open</div>
             </div>
           </div>
           <div class="shadow"></div>
         </button>
-        <p class="hint">点一下，就打开</p>
+        <p class="hint">Tap to open</p>
       </div>
     </section>
 
-    <section class="scene scene-letter" aria-label="生日祝福">
+    <section class="scene scene-letter" aria-label="Birthday wishes">
       <div class="quote-board">
         <p class="zh" id="poem">
           <span>前路漫漫，人生待君奔赴</span>
@@ -837,14 +811,14 @@
           <span>当下之所以珍贵，只因它转瞬更迭</span>
           <span>而未来，全然属于你</span>
         </p>
-        <button class="quiet" id="wishBtn" type="button">去许个愿</button>
+        <button class="quiet" id="wishBtn" type="button">Make a Wish</button>
       </div>
     </section>
 
-    <section class="scene scene-cake" aria-label="生日蛋糕">
+    <section class="scene scene-cake" aria-label="Birthday cake">
       <div class="cake-wrap" id="cakeWrap">
-        <h2 id="cakeTitle">姐姐，许个愿</h2>
-        <p class="cake-lead" id="cakeLead">蜡烛亮着，轻轻吹一下</p>
+        <h2 id="cakeTitle">Make a Wish</h2>
+        <p class="cake-lead" id="cakeLead">The candles are lit.</p>
         <div class="cake" id="cake">
           <div class="glow"></div>
           <div class="candles" aria-hidden="true">
@@ -856,7 +830,7 @@
           <div class="sponge"></div>
           <div class="plate"></div>
         </div>
-        <button class="btn blow" id="blowBtn" type="button">吹灭蜡烛</button>
+        <button class="btn blow" id="blowBtn" type="button">Blow Out the Candles</button>
       </div>
       <div class="after-wish" id="afterWish" hidden>
         <p class="zh">
@@ -864,12 +838,12 @@
           <span>你所拥有的美好风姿永不消逝</span>
         </p>
         <div>
-          <button class="text-btn" id="againBtn" type="button">再读一遍</button>
-          <button class="text-btn" id="resetBtn" type="button">重新封上</button>
+          <button class="text-btn" id="againBtn" type="button">Read it again</button>
+          <button class="text-btn" id="resetBtn" type="button">Seal the letter</button>
         </div>
       </div>
     </section>
-    <button class="dock" id="dock" type="button">点亮灯光</button>
+    <button class="dock" id="dock" type="button">Turn On the Lights</button>
   </div>
 
   <script>
@@ -912,64 +886,25 @@
     var resetBtn = document.getElementById("resetBtn");
     var opened = false;
     var opening = false;
-    var audioCtx = null;
-    var muted = false;
+    var bgm = document.getElementById("bgm");
 
     function setScene(name) {
       stage.setAttribute("data-scene", name);
       var dock = document.getElementById("dock");
-      if (name === "cover") dock.textContent = "拆开这封信";
-      if (name === "letter") dock.textContent = "去许个愿";
-      if (name === "cake") dock.textContent = "吹灭蜡烛";
+      if (name === "cover") dock.textContent = "Open the Letter";
+      if (name === "letter") dock.textContent = "Make a Wish";
+      if (name === "cake") dock.textContent = "Blow Out the Candles";
       dock.hidden = false;
     }
 
-    function ensureAudio() {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return null;
-      if (!audioCtx) audioCtx = new AC();
-      if (audioCtx.state === "suspended") audioCtx.resume();
-      return audioCtx;
+    function playBirthday() {
+      var pending = bgm.play();
+      if (pending && pending.catch) pending.catch(function () {});
     }
-
-    var songNodes = [];
 
     function stopSong() {
-      songNodes.forEach(function (node) {
-        try { node.stop(); } catch (err) {}
-      });
-      songNodes = [];
-    }
-
-    function playBirthday() {
-      if (muted) return;
-      var ctx = ensureAudio();
-      if (!ctx) return;
-      stopSong();
-      var beat = 0.42;
-      var notes = [
-        [261.63, 0.75], [261.63, 0.25], [293.66, 1], [261.63, 1], [349.23, 1], [329.63, 2],
-        [261.63, 0.75], [261.63, 0.25], [293.66, 1], [261.63, 1], [392, 1], [349.23, 2],
-        [261.63, 0.75], [261.63, 0.25], [523.25, 1], [440, 1], [349.23, 1], [329.63, 1], [293.66, 2],
-        [466.16, 0.75], [466.16, 0.25], [440, 1], [349.23, 1], [392, 1], [349.23, 2]
-      ];
-      var time = ctx.currentTime + 0.06;
-      notes.forEach(function (note) {
-        var dur = note[1] * beat;
-        var osc = ctx.createOscillator();
-        var gain = ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.value = note[0];
-        gain.gain.setValueAtTime(0.0001, time);
-        gain.gain.exponentialRampToValueAtTime(0.06, time + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0001, time + Math.max(0.12, dur - 0.05));
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(time);
-        osc.stop(time + dur);
-        songNodes.push(osc);
-        time += dur;
-      });
+      bgm.pause();
+      try { bgm.currentTime = 0; } catch (err) {}
     }
 
     function burst() {
@@ -993,7 +928,7 @@
       var balloon = document.createElement("i");
       balloon.className = "balloon";
       balloon.style.left = (6 + b * 13) + "%";
-      balloon.style.setProperty("--h", (46 + (b % 3) * 8) + "%");
+      balloon.style.setProperty("--h", (34 + (b % 3) * 8) + "%");
       balloon.style.background = "radial-gradient(circle at 32% 28%, #fffaf4, " + balloonColors[b] + " 64%)";
       balloon.style.animationDelay = (b * 0.12) + "s, " + (2.8 + b * 0.12) + "s";
       balloonBox.appendChild(balloon);
@@ -1008,18 +943,17 @@
         if (step === 0) {
           step = 1;
           stage.setAttribute("data-step", "1");
-          dock.textContent = "放一首歌";
+          dock.textContent = "Play the Music";
         } else if (step === 1) {
           step = 2;
           stage.setAttribute("data-step", "2");
-          stage.classList.add("is-music");
           playBirthday();
-          dock.textContent = "升起气球";
+          dock.textContent = "Raise the Balloons";
         } else if (step === 2) {
           step = 3;
           stage.setAttribute("data-step", "3");
           balloonBox.classList.add("is-up");
-          dock.textContent = "打开贺卡";
+          dock.textContent = "Open the Card";
         } else {
           setScene("cover");
         }
@@ -1082,23 +1016,12 @@
       afterWish.hidden = true;
       stage.classList.remove("is-after");
       balloonBox.classList.remove("is-up");
-      stage.classList.remove("is-music");
       stage.setAttribute("data-step", "0");
       step = 0;
       dock.hidden = false;
-      dock.textContent = "点亮灯光";
+      dock.textContent = "Turn On the Lights";
       stopSong();
       setScene("intro");
-    });
-
-    document.getElementById("soundBtn").addEventListener("click", function () {
-      muted = !muted;
-      this.setAttribute("aria-pressed", muted ? "true" : "false");
-      this.setAttribute("aria-label", muted ? "打开音乐" : "关闭音乐");
-      document.getElementById("iconOn").hidden = muted;
-      document.getElementById("iconOff").hidden = !muted;
-      if (muted) stopSong();
-      else playBirthday();
     });
   </script>
 </body>
