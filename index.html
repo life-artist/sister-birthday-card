@@ -68,11 +68,25 @@
       height: calc(var(--vh) * 100);
       margin: 0 auto;
       overflow: hidden;
+      background: #10080b;
+    }
+
+    .wash {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.1s ease;
       background:
         radial-gradient(ellipse at 50% 0%, rgba(214, 126, 140, 0.28), transparent 52%),
         radial-gradient(ellipse at 80% 90%, rgba(120, 40, 58, 0.45), transparent 46%),
         linear-gradient(180deg, #4a2230 0%, var(--bg1) 38%, var(--bg0) 100%);
     }
+
+    .stage:not([data-step="0"]) .wash { opacity: 1; }
+    .stage[data-step="0"]::before { opacity: 0; }
+    .stage[data-step="0"] .petals { opacity: 0; }
 
     .stage::before {
       content: "";
@@ -302,25 +316,23 @@
       background: radial-gradient(ellipse, rgba(0, 0, 0, 0.38), transparent 70%);
     }
 
-    .hint {
-      margin-top: 22px;
-      font-size: 15px;
-      letter-spacing: 0.28em;
-      text-indent: 0.28em;
-      color: rgba(255, 246, 238, 0.88);
-      animation: bob 1.6s ease-in-out infinite;
-    }
+    .hint { display: none; }
 
     @keyframes bob {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(5px); }
     }
 
+    .scene-cover,
+    .scene-cake {
+      padding-bottom: calc(92px + env(safe-area-inset-bottom));
+    }
+
     .scene-letter {
       background: #f4f3f1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding: calc(64px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));
+      padding: calc(64px + env(safe-area-inset-top)) 22px calc(108px + env(safe-area-inset-bottom));
     }
 
     .stage.is-after .sound,
@@ -643,6 +655,116 @@
       to { transform: translate3d(var(--x), 105vh, 0) rotate(540deg); opacity: 0.2; }
     }
 
+    .quiet, #blowBtn { display: none; }
+
+    .lights {
+      position: absolute;
+      z-index: 4;
+      top: calc(18px + env(safe-area-inset-top));
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    .stage:not([data-step="0"]) .lights { opacity: 1; }
+
+    .stage[data-scene="letter"] .lights,
+    .stage[data-scene="cake"] .lights,
+    .stage.is-after .lights { opacity: 0; }
+
+    .lights i {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #fff8ec, #f0c27a 42%, #c45c6a 78%);
+      box-shadow: 0 0 16px 5px rgba(255, 196, 140, 0.55);
+    }
+
+    .balloons {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+
+    .stage[data-scene="letter"] .balloons,
+    .stage[data-scene="cake"] .balloons,
+    .stage.is-after .balloons { opacity: 0; }
+
+    .balloon {
+      position: absolute;
+      bottom: -28%;
+      width: 44px;
+      height: 56px;
+      border-radius: 50% 50% 48% 48% / 58% 58% 42% 42%;
+      opacity: 0;
+    }
+
+    .balloon::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -5px;
+      width: 8px;
+      height: 8px;
+      margin-left: -4px;
+      background: inherit;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 4px);
+      width: 1px;
+      height: 48px;
+      background: rgba(240, 214, 180, 0.72);
+    }
+
+    .balloons.is-up .balloon {
+      animation: float-up 2.8s ease forwards, sway 5.6s ease-in-out infinite;
+    }
+
+    @keyframes float-up {
+      to { bottom: var(--h); opacity: 0.94; }
+    }
+
+    @keyframes sway {
+      0%, 100% { margin-left: 0; }
+      50% { margin-left: 12px; }
+    }
+
+    .dock {
+      position: absolute;
+      z-index: 7;
+      left: 50%;
+      bottom: calc(18px + env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      min-width: 176px;
+      min-height: 48px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #b24a5b, var(--rose-deep));
+      color: #fff8f3;
+      letter-spacing: 0.18em;
+      text-indent: 0.18em;
+      font-size: 15px;
+      box-shadow: 0 10px 24px rgba(40, 8, 14, 0.35);
+    }
+
+    .dock[hidden] { display: none; }
+
+    .sound { opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+    .stage.is-music .sound { opacity: 1; pointer-events: auto; }
+
     @media (max-height: 720px) {
       .scene-letter { padding-top: calc(56px + env(safe-area-inset-top)); }
       .zh { font-size: 18px; line-height: 2; }
@@ -665,7 +787,10 @@
   </style>
 </head>
 <body>
-  <div class="stage" id="stage" data-scene="cover">
+  <div class="stage" id="stage" data-scene="intro" data-step="0">
+    <div class="wash"></div>
+    <div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="balloons" id="balloons"></div>
     <div class="petals" id="petals"></div>
 
     <button class="sound" id="soundBtn" type="button" aria-label="关闭音乐" aria-pressed="false">
@@ -744,6 +869,7 @@
         </div>
       </div>
     </section>
+    <button class="dock" id="dock" type="button">点亮灯光</button>
   </div>
 
   <script>
@@ -791,6 +917,11 @@
 
     function setScene(name) {
       stage.setAttribute("data-scene", name);
+      var dock = document.getElementById("dock");
+      if (name === "cover") dock.textContent = "拆开这封信";
+      if (name === "letter") dock.textContent = "去许个愿";
+      if (name === "cake") dock.textContent = "吹灭蜡烛";
+      dock.hidden = false;
     }
 
     function ensureAudio() {
@@ -856,11 +987,61 @@
       }
     }
 
+    var balloonBox = document.getElementById("balloons");
+    var balloonColors = ["#f4c9d0", "#f6e3d4", "#e7b3bc", "#f8efe6", "#d98996", "#f0d3b0", "#c96b78"];
+    for (var b = 0; b < balloonColors.length; b++) {
+      var balloon = document.createElement("i");
+      balloon.className = "balloon";
+      balloon.style.left = (6 + b * 13) + "%";
+      balloon.style.setProperty("--h", (46 + (b % 3) * 8) + "%");
+      balloon.style.background = "radial-gradient(circle at 32% 28%, #fffaf4, " + balloonColors[b] + " 64%)";
+      balloon.style.animationDelay = (b * 0.12) + "s, " + (2.8 + b * 0.12) + "s";
+      balloonBox.appendChild(balloon);
+    }
+
+    var dock = document.getElementById("dock");
+    var step = 0;
+
+    dock.addEventListener("click", function () {
+      var scene = stage.getAttribute("data-scene");
+      if (scene === "intro") {
+        if (step === 0) {
+          step = 1;
+          stage.setAttribute("data-step", "1");
+          dock.textContent = "放一首歌";
+        } else if (step === 1) {
+          step = 2;
+          stage.setAttribute("data-step", "2");
+          stage.classList.add("is-music");
+          playBirthday();
+          dock.textContent = "升起气球";
+        } else if (step === 2) {
+          step = 3;
+          stage.setAttribute("data-step", "3");
+          balloonBox.classList.add("is-up");
+          dock.textContent = "打开贺卡";
+        } else {
+          setScene("cover");
+        }
+        return;
+      }
+      if (scene === "cover") {
+        document.getElementById("openBtn").click();
+        return;
+      }
+      if (scene === "letter") {
+        setScene("cake");
+        return;
+      }
+      if (scene === "cake") {
+        document.getElementById("blowBtn").click();
+      }
+    });
+
     document.getElementById("openBtn").addEventListener("click", function () {
       if (opened || opening) return;
       opening = true;
       envelope.classList.add("is-open");
-      playBirthday();
       burst();
       setTimeout(function () {
         opened = true;
@@ -882,10 +1063,14 @@
       setTimeout(function () {
         afterWish.hidden = false;
         stage.classList.add("is-after");
+        dock.hidden = true;
       }, 700);
     });
 
     againBtn.addEventListener("click", function () {
+      afterWish.hidden = true;
+      stage.classList.remove("is-after");
+      cake.classList.remove("is-blown");
       setScene("letter");
     });
 
@@ -896,8 +1081,14 @@
       cake.classList.remove("is-blown");
       afterWish.hidden = true;
       stage.classList.remove("is-after");
+      balloonBox.classList.remove("is-up");
+      stage.classList.remove("is-music");
+      stage.setAttribute("data-step", "0");
+      step = 0;
+      dock.hidden = false;
+      dock.textContent = "点亮灯光";
       stopSong();
-      setScene("cover");
+      setScene("intro");
     });
 
     document.getElementById("soundBtn").addEventListener("click", function () {
